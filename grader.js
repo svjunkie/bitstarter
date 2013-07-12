@@ -44,7 +44,7 @@ var clone = function(fn) {
 };
 
 var assertUrlExists(url) {
-    
+    //see http://stackoverflow.com/questions/17544662/node-js-callback-asynch-commandline/
 };
 
 var outputJson = function(json) {
