@@ -43,6 +43,10 @@ var clone = function(fn) {
     return fn.bind({});
 };
 
+var assertUrlExists(url) {
+    
+};
+
 var outputJson = function(json) {
  var outJson = JSON.stringify(json, null, 4);
  return outJson;    
@@ -57,6 +61,7 @@ if(require.main == module) {
     var checkJson = checkHtmlFile(program.file, program.checks);
 //    var outJson = JSON.stringify(checkJson, null, 4);
     rest.get(program.url).on('complete', function(result) {
+	console.log(outJson);
     });
 //    console.log(outJson);
 } else {
