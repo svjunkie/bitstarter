@@ -48,12 +48,13 @@ var assertUrlExists = function(url) {
     //see http://stackoverflow.com/questions/17544662/node-js-callback-asynch-commandline/
 };
 
-var getUrl = function(url) {
+var checkUrl = function(url, checksfile) {
     var handleUrl = function(result, response) {
 	if (result instanceof Error) {
 	    console.error('Error: ' + util.format(response.message));
 	} else {
-	    console.error(
+	    console.error("Successfully Pulled URL %s", url);
+	    return(checkHtmlFile(url, checksfile));
 	}
     };
     rest.get(url).on('complete',handleUrl);
