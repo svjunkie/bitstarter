@@ -23,7 +23,7 @@ var cheerioHtmlFile = function(htmlfile) {
 };
 
 var loadChecks = function(checksfile) {
-    return cheerio.load(fs.readFileSync(htmlfile));
+    return cheerio.load(fs.readFileSync(checksfile));
 };
 
 var checkHtmlFile = function(htmlfile, checksfile) {
