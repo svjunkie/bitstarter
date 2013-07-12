@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /* comments, time permitting */
 
+var util = require('util');
 var fs = require('fs');
 var program = require('commander');
 var rest = require('restler');
@@ -43,8 +44,19 @@ var clone = function(fn) {
     return fn.bind({});
 };
 
-var assertUrlExists(url) {
+var assertUrlExists = function(url) {
     //see http://stackoverflow.com/questions/17544662/node-js-callback-asynch-commandline/
+};
+
+var getUrl = function(url) {
+    var handleUrl = function(result, response) {
+	if (result instanceof Error) {
+	    console.error('Error: ' + util.format(response.message));
+	} else {
+	    console.error(
+	}
+    };
+    rest.get(url).on('complete',handleUrl);
 };
 
 var outputJson = function(json) {
