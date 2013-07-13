@@ -54,7 +54,7 @@ var checkUrl = function(url, checksfile) {
 	    console.error('Error: ' + util.format(response.message));
 	} else {
 	    console.error("Successfully Pulled URL %s", url);
-	    return(checkHtmlFile(fs.readFileSync(url), checksfile));
+	    return(checkHtmlFile(result, checksfile));
 	}
     };
     rest.get(url).on('complete',handleUrl);
@@ -71,11 +71,21 @@ if(require.main == module) {
        .option('-f, --file <html_file>', 'Path to index.html', clone(assertFileExists), HTMLFILE_DEFAULT)
        .option('-u, --url <html_url>', 'URL to index.html')
        .parse(process.argv);
-    var checkJson = checkHtmlFile(program.file, program.checks);
+    if(program.file) {
+	var checkJson = checkHtmlFile(program.file, program.checks);
+	var outJson = JSON.stringify(checkJson, null, 4);
+    } else if(program.url) {
+	var checkJson = checkUrl(program.url, program.checks);
+	var outJson = JSON.stringify(checkJson, null, 4);
+    }
+
+    console.log(outJson);
+
+//    var checkJson = checkHtmlFile(program.file, program.checks);
 //    var outJson = JSON.stringify(checkJson, null, 4);
-    rest.get(program.url).on('complete', function(result) {
-	console.log(outJson);
-    });
+//    rest.get(program.url).on('complete', function(result) {
+//	console.log(outJson);
+//    });
 //    console.log(outJson);
 } else {
     exports.checkHtmlFile = checkHtmlFile;
