@@ -54,7 +54,7 @@ var checkUrl = function(url, checksfile) {
 	    console.error('Error: ' + util.format(response.message));
 	} else {
 	    console.error("Successfully Pulled URL %s", url);
-	    return(checkHtmlFile(url, checksfile));
+	    return(checkHtmlFile(fs.readFileSync(url), checksfile));
 	}
     };
     rest.get(url).on('complete',handleUrl);
@@ -69,7 +69,7 @@ if(require.main == module) {
     program
        .option('-c, --checks <check_file>', 'Path to checks.json', clone(assertFileExists), CHECKSFILE_DEFAULT)
        .option('-f, --file <html_file>', 'Path to index.html', clone(assertFileExists), HTMLFILE_DEFAULT)
-       .option('-u, --url <html_url>', 'URL to index.html',clone(assertUrlExists))
+       .option('-u, --url <html_url>', 'URL to index.html')
        .parse(process.argv);
     var checkJson = checkHtmlFile(program.file, program.checks);
 //    var outJson = JSON.stringify(checkJson, null, 4);
